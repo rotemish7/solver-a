@@ -15,16 +15,33 @@ namespace solver
 {
     class RealVariable
     {
-
-    private:
-        double num;
+        double a;
+        double b;
+        double c;
 
 
     public:
 
-        RealVariable()
+        RealVariable(double a,double b,double c)
         {
-            (*this).num = 1;
+            (*this).a = a;
+            (*this).b = b;
+            (*this).c = c;
+        }
+
+        const double & getA() const
+        {
+            return a;
+        }
+
+        const double & getB() const
+        {
+            return b;
+        }
+
+        const double & getC() const
+        {
+            return c;
         }
 
         friend RealVariable operator+(const int, const RealVariable);
@@ -61,14 +78,32 @@ namespace solver
 
     class ComplexVariable
     {
+        complex<double> a;
+        complex<double> b;
+        complex<double> c;
 
-    private:
-        complex<double> x;
     public:
 
-        ComplexVariable()
+        ComplexVariable(): a(0), b(1,0), c(0) {}
+
+        ComplexVariable(complex<double> a, complex<double> b, complex<double> c)
         {
-            (*this).x = 1;
+            (*this).a = complex(a);
+            (*this).b = complex(b);
+            (*this).c = complex(c);
+        }
+
+        const complex<double> & getA() const
+        {
+            return a;
+        }
+        const complex<double> & getB() const
+        {
+            return b;
+        }
+        const complex<double> & getC() const
+        {
+            return c;
         }
 
         friend ComplexVariable operator*(const int, const ComplexVariable);
