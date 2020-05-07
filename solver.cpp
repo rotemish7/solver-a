@@ -15,7 +15,7 @@ namespace solver
 
     /**
      *
-     * @param num
+     * @param real
      * @return
      */
     double solve(const RealVariable& real)
@@ -54,7 +54,7 @@ namespace solver
 
     /**
      *
-     * @param num
+     * @param comp
      * @return
      */
     complex<double> solve(const ComplexVariable& comp)
@@ -83,13 +83,23 @@ namespace solver
         return ((-b + sqrt(formula)) / (complex(2.0,0.0)*a));
     }
 
+    /**
+     *
+     * @param comp
+     * @return
+     */
+    string ComplexToString(const complex<double> comp)
+    {
+        return to_string(comp.real()) + "+" + to_string(comp.imag()) + "i";
+    }
+
     //// RealVariable ////
 
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param num
+     * @param real
      * @return
      */
     RealVariable operator*(const double num, const RealVariable real)
@@ -99,8 +109,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real1
+     * @param real2
      * @return
      */
     RealVariable operator*(const RealVariable real1, const RealVariable real2)
@@ -114,8 +124,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real
+     * @param num
      * @return
      */
     RealVariable operator*(const RealVariable& real, const double num)
@@ -125,19 +135,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    RealVariable operator-(const int num1, const RealVariable& num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
+     * @param real
+     * @param num
      * @return
      */
     RealVariable operator-(const RealVariable& real, const double num)
@@ -147,8 +146,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param num
+     * @param real
      * @return
      */
     RealVariable operator-(const double num, const RealVariable& real)
@@ -158,8 +157,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real1
+     * @param real2
      * @return
      */
     RealVariable operator-(const RealVariable& real1, const RealVariable& real2)
@@ -169,8 +168,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real
+     * @param num
      * @return
      */
     RealVariable operator+(const RealVariable& real, const double num)
@@ -180,8 +179,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param num
+     * @param real
      * @return
      */
     RealVariable operator+(const double num, const RealVariable& real)
@@ -191,8 +190,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real1
+     * @param real2
      * @return
      */
     RealVariable operator+(const RealVariable& real1, const RealVariable& real2)
@@ -202,8 +201,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real
+     * @param num
      * @return
      */
     RealVariable operator^(const RealVariable& real, const double num)
@@ -232,8 +231,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real
+     * @param num
      * @return
      */
     RealVariable operator==(const RealVariable& real, const doulbe num)
@@ -243,8 +242,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param num
+     * @param real
      * @return
      */
     RealVariable operator==(const double num, const RealVariable& real)
@@ -254,8 +253,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real1
+     * @param real2
      * @return
      */
     RealVariable operator==(const RealVariable& real1, const RealVariable& real2)
@@ -265,8 +264,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real
+     * @param num
      * @return
      */
     RealVariable operator/(const RealVariable& real, const double num)
@@ -280,8 +279,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param real1
+     * @param real2
      * @return
      */
     RealVariable operator/(const RealVariable& real1, const RealVariable& real2)
@@ -348,7 +347,7 @@ namespace solver
 
     /**
      *
-     * @param comp11
+     * @param comp1
      * @param comp2
      * @return
      */
@@ -429,8 +428,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param comp
+     * @param num
      * @return
      */
     ComplexVariable operator^(const ComplexVariable& comp, const double num)
@@ -505,8 +504,8 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param comp
+     * @param num
      * @return
      */
     ComplexVariable operator/(const ComplexVariable& comp, const complex<double> num)
@@ -556,7 +555,6 @@ namespace solver
         {
             return comp1/comp2.c;
         }
-        throw runtime_error("error in divide");
+        throw runtime_error("Error dividing");
     }
-
 };
