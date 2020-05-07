@@ -11,7 +11,6 @@ using namespace std;
 
 namespace solver
 {
-    //// solver ////
 
     /**
      *
@@ -20,6 +19,7 @@ namespace solver
      */
     double solve(const RealVariable& real)
     {
+        //https://stackoverflow.com/questions/898076/solve-quadratic-equation-in-c
         double a = real.getA();
         double b = real.getB();
         double c = real.getC();
@@ -79,8 +79,8 @@ namespace solver
                 return -c/b;
             }
         }
-        complex<double> fx = (b*b) - (complex(4.0,0.0)*a*c);
-        return ((-b + sqrt(fx)) / (complex(2.0,0.0)*a));
+        complex<double> fx = b*b-(complex(4.0,0.0)*a*c);
+        return (-b + sqrt(fx) / (complex(2.0,0.0)*a));
     }
 
     /**
@@ -102,7 +102,7 @@ namespace solver
      * @param real
      * @return
      */
-    RealVariable operator*(const double num, const RealVariable real)
+    RealVariable operator*(const double num, const RealVariable& real)
     {
         return RealVariable(real.a*num, real.b*num, real.c*num);
     }
@@ -113,7 +113,7 @@ namespace solver
      * @param real2
      * @return
      */
-    RealVariable operator*(const RealVariable real1, const RealVariable real2)
+    RealVariable operator*(const RealVariable& real1, const RealVariable& real2)
     {
         if((real1.a > 0 && real2.a > 0) || (real1.a > 0 && real2.b > 0) || (real2.a > 0 && real1.b > 0))
         {
