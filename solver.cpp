@@ -326,13 +326,105 @@ namespace solver
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param num
+     * @param comp
      * @return
      */
-    ComplexVariable operator*(const int num1, const ComplexVariable num2)
+    ComplexVariable operator*(const complex<double> num, const ComplexVariable& comp)
     {
-        return num2;
+        return ComplexVariable(c.a*n, c.b*n, c.c*n);
+    }
+
+    /**
+    *
+    * @param comp
+    * @param num
+    * @return
+    */
+    ComplexVariable operator*(const ComplexVariable& comp,const complex<double> num)
+    {
+        return ComplexVariable(c.a*n, c.b*n, c.c*n);
+    }
+
+    /**
+     *
+     * @param comp11
+     * @param comp2
+     * @return
+     */
+    ComplexVariable operator* (const ComplexVariable& comp1, const ComplexVariable& comp2)
+    {
+        if((comp1.a!=complex(0.0,0.0)&&comp2.a!=complex(0.0,0.0))||(comp1.a!=complex(0.0,0.0)&&comp2.b!=complex(0.0,0.0))||(comp2.a!=complex(0.0,0.0)&&comp1.b!=complex(0.0,0.0)))
+        {
+            throw runtime_error("Power is higher than 2");
+        }
+        return ComplexVariable((comp1.a*comp2.c) + (comp2.a*comp1.c) + (comp1.b*comp2.b),(comp1.b*comp2.c) + (comp2.b*comp1.c),comp1.c*comp2.c);
+    }
+
+    /**
+     *
+     * @param comp1
+     * @param comp2
+     * @return
+     */
+    ComplexVariable operator-(const ComplexVariable& comp1, const ComplexVariable& comp2)
+    {
+        return ComplexVariable(comp1.a-comp2.a, comp1.b-comp2.b, comp1.c-comp2.c);
+    }
+
+    /**
+     *
+     * @param comp
+     * @param num
+     * @return
+     */
+    ComplexVariable operator-(const ComplexVariable& comp, const complex<double> num)
+    {
+        return ComplexVariable(comp.a, comp.b, comp.c-num);
+    }
+
+    /**
+     *
+     * @param num
+     * @param comp
+     * @return
+     */
+    ComplexVariable operator-(const complex<double> num, const ComplexVariable& comp)
+    {
+        return ComplexVariable(-comp.a, -comp.b, comp.c+num);
+    }
+
+    /**
+     *
+     * @param comp1
+     * @param comp2
+     * @return
+     */
+    ComplexVariable operator+(const ComplexVariable& comp1, const ComplexVariable& comp2)
+    {
+        return ComplexVariable(comp1.a+comp2.a, comp1.b+comp2.b, comp1.c+comp2.c);
+    }
+
+    /**
+     *
+     * @param comp
+     * @param num
+     * @return
+     */
+    ComplexVariable operator+(const ComplexVariable& comp, const complex<double> num)
+    {
+        return ComplexVariable(comp.a, comp.b, comp.c+num);
+    }
+
+    /**
+     *
+     * @param num
+     * @param comp
+     * @return
+     */
+    ComplexVariable operator+(const complex<double> num, const ComplexVariable& comp)
+    {
+        return num+comp;
     }
 
     /**
@@ -341,9 +433,74 @@ namespace solver
      * @param num2
      * @return
      */
-    ComplexVariable operator*(const complex<double> num1, const ComplexVariable num2)
+    ComplexVariable operator^(const ComplexVariable& comp, const double num)
     {
-        return num2;
+        if(num.imag() != 0)
+        {
+            throw runtime_error("Invalid");
+        }
+        if(num.real() == 0)
+        {
+            return ComplexVariable(0, 0, 1);
+        }
+        if(num.real() == 1)
+        {
+            return num1;
+        }
+        if(comp.a != complex(0.0,0.0))
+        {
+            throw runtime_error("The power is higher than 2");
+        }
+        if(num.real() < 0)
+        {
+            throw runtime_error("The power is higher than 2");
+        }
+        if(num.real() > 2)
+        {
+            if(comp.b != complex(0.0,0.0))
+            {
+                throw runtime_error("The power is higher than 2");
+            }
+            else
+            {
+                complex<double> power = pow(comp.c, num);
+                return ComplexVariable(0, 0, power);
+            }
+        }
+        return comp*comp;
+    }
+
+    /**
+     *
+     * @param comp1
+     * @param comp2
+     * @return
+     */
+    ComplexVariable operator==(const ComplexVariable& comp1, const ComplexVariable& comp2)
+    {
+        return comp1-comp2;
+    }
+
+    /**
+     *
+     * @param num
+     * @param comp
+     * @return
+     */
+    ComplexVariable operator==(const complex<double> num, const ComplexVariable& comp)
+    {
+        return comp-num;
+    }
+
+    /**
+     *
+     * @param comp
+     * @param num
+     * @return
+     */
+    ComplexVariable operator==(const ComplexVariable& comp, const complex<double> num)
+    {
+        return comp-num;
     }
 
     /**
@@ -352,218 +509,54 @@ namespace solver
      * @param num2
      * @return
      */
-    ComplexVariable operator-(const ComplexVariable num1, const int num2)
+    ComplexVariable operator/(const ComplexVariable& comp, const complex<double> num)
     {
-        return num1;
+        if(num.real() == 0 && num.imag() == 0)
+        {
+            throw invalid_argument("Cannot divide by 0");
+        }
+
+        return ComplexVariable(comp.a/num,comp.b/num,comp.c/num);
     }
 
     /**
      *
-     * @param num1
-     * @param num2
+     * @param comp1
+     * @param comp2
      * @return
      */
-    ComplexVariable operator-(const ComplexVariable num1, const ComplexVariable num2)
+    ComplexVariable operator/(const ComplexVariable& comp1, const ComplexVariable& comp2)
     {
-        return num2;
-    }
+        if(comp2.a == complex(0.0,0.0) && comp2.b == complex(0.0,0.0) && comp2.c == complex(0.0,0.0))
+        {
+            throw runtime_error("Cannot divide by 0");
+        }
 
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator-(const ComplexVariable num1, const complex<double> num2)
-    {
-        return num1;
-    }
+        ComplexVariable x;
+        ComplexVariable temp1 = operator-(comp1,x^2);
+        ComplexVariable temp2 = operator-(comp2,x);
+        ComplexVariable comp3 = comp1 - comp2;
+        ComplexVariable comp4 = comp2 - comp1;
 
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    complex<double> operator-(const int num1, const complex<double> num2)
-    {
-        return num2;
-    }
+        if(comp3.a == complex(0.0,0.0) && comp3.b == complex(0.0,0.0) && comp3.c == complex(0.0,0.0))
+        {
+            return ComplexVariable(0,0,complex(1.0,0.0));
+        }
 
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator-(const complex<double> num1, const ComplexVariable num2)
-    {
-        return num2;
-    }
+        if(comp4.a == complex(0.0,0.0) && comp4.b == complex(0.0,0.0) && comp4.c == complex(0.0,0.0))
+        {
+            return ComplexVariable(0,0,complex(1.0,0.0));
+        }
 
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator-(const int num1, const ComplexVariable num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator+(const int num1, const ComplexVariable num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator+(const ComplexVariable num1, const int num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator+(const ComplexVariable num1, const ComplexVariable num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator+(const ComplexVariable num1, const complex<double> num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator+(const complex<double> num1, const ComplexVariable num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    complex<double> operator+(const int num1, const complex<double> num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator^(const ComplexVariable num1, const int num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator==(const int num1, const ComplexVariable num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator==(const ComplexVariable num1, const int num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator==(const ComplexVariable num1, const ComplexVariable num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator==(const complex<double> num1, const ComplexVariable num2)
-    {
-        return num2;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator==(const ComplexVariable num1, const complex<double> num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator/(const ComplexVariable num1, const int num2)
-    {
-        return num1;
-    }
-
-    /**
-     *
-     * @param num1
-     * @param num2
-     * @return
-     */
-    ComplexVariable operator/(const ComplexVariable num1, const complex<double> num2)
-    {
-        return num1;
+        if(temp1.a == complex(0.0,0.0) && temp1.b == complex(0.0,0.0) && temp1.c == complex(0.0,0.0) && temp2.a == complex(0.0,0.0) && temp2.b == complex(0.0,0.0) && temp2.c == complex(0.0,0.0))
+        {
+            return ComplexVariable(0,complex(1.0,0.0),0);
+        }
+        if(comp2.a == complex(0.0,0.0) && comp2.b == complex(0.0,0.0))
+        {
+            return comp1/comp2.c;
+        }
+        throw runtime_error("error in divide");
     }
 
 };
