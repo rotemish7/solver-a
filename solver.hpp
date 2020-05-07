@@ -24,24 +24,24 @@ namespace solver
             c=0;
         }
 
-        RealVariable(double a,double b,double c)
+        RealVariable(const double& a, const double& b, const double& c)
         {
-            (*this).a = a;
-            (*this).b = b;
-            (*this).c = c;
+            this->a = a;
+            this->b = b;
+            this->c = c;
         }
 
-        const double & getA() const
+        double getA() const
         {
             return a;
         }
 
-        const double & getB() const
+        double getB() const
         {
             return b;
         }
 
-        const double & getC() const
+        double getC() const
         {
             return c;
         }
@@ -85,22 +85,22 @@ namespace solver
             c = 0;
         }
 
-        ComplexVariable(complex<double> a, complex<double> b, complex<double> c)
+        ComplexVariable(const complex<double> a, const complex<double> b, const complex<double> c)
         {
             (*this).a = complex(a);
             (*this).b = complex(b);
             (*this).c = complex(c);
         }
 
-        const complex<double> & getA() const
+        complex<double> getA() const
         {
             return a;
         }
-        const complex<double> & getB() const
+        complex<double> getB() const
         {
             return b;
         }
-        const complex<double> & getC() const
+        complex<double> getC() const
         {
             return c;
         }
