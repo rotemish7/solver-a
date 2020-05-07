@@ -11,12 +11,11 @@ namespace solver
 {
     class RealVariable
     {
+    public:
+
         double a;
         double b;
         double c;
-
-
-    public:
 
         RealVariable()
         {
@@ -73,12 +72,12 @@ namespace solver
 
     class ComplexVariable
     {
+    public:
+
         complex<double> a;
         complex<double> b;
         complex<double> c;
-
-    public:
-
+        
         ComplexVariable()
         {
             a = 0;

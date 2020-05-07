@@ -44,10 +44,10 @@ namespace solver
             return c;
         }
 
-        double f = (b*b) - 4*a*c;
-        if (formula >= 0)
+        double fx = (b*b) - 4*a*c;
+        if (fx >= 0)
         {
-            return ((-b + sqrt(formula))/(2*a));
+            return ((-b + sqrt(fx))/(2*a));
         }
         throw runtime_error("There is no real solution");
     }
