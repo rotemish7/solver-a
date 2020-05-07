@@ -79,8 +79,8 @@ namespace solver
                 return -c/b;
             }
         }
-        complex<double> f = (b*b) - (complex(4.0,0.0)*a*c);
-        return ((-b + sqrt(formula)) / (complex(2.0,0.0)*a));
+        complex<double> fx = (b*b) - (complex(4.0,0.0)*a*c);
+        return ((-b + sqrt(fx)) / (complex(2.0,0.0)*a));
     }
 
     /**
@@ -331,7 +331,7 @@ namespace solver
      */
     ComplexVariable operator*(const complex<double> num, const ComplexVariable& comp)
     {
-        return ComplexVariable(c.a*n, c.b*n, c.c*n);
+        return ComplexVariable(comp.a*num, comp.b*num, comp.c*num);
     }
 
     /**
@@ -342,7 +342,7 @@ namespace solver
     */
     ComplexVariable operator*(const ComplexVariable& comp,const complex<double> num)
     {
-        return ComplexVariable(c.a*n, c.b*n, c.c*n);
+        return ComplexVariable(comp.a*num, comp.b*num, comp.c*num);
     }
 
     /**
@@ -432,7 +432,7 @@ namespace solver
      * @param num
      * @return
      */
-    ComplexVariable operator^(const ComplexVariable& comp, const double num)
+    ComplexVariable operator^(const ComplexVariable& comp, const complex<double> num)
     {
         if(num.imag() != 0)
         {
