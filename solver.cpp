@@ -444,7 +444,7 @@ namespace solver
         }
         if(num.real() == 1)
         {
-            return num1;
+            return num;
         }
         if(comp.a != complex(0.0,0.0))
         {
