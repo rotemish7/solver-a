@@ -115,7 +115,7 @@ namespace solver
      */
     RealVariable operator*(const RealVariable real1, const RealVariable real2)
     {
-        if((real.a > 0 && real2.a > 0) || (real1.a > 0 && real2.b > 0) || (real2.a > 0 && real1.b > 0))
+        if((real1.a > 0 && real2.a > 0) || (real1.a > 0 && real2.b > 0) || (real2.a > 0 && real1.b > 0))
         {
             throw runtime_error("Power is higher than 2");
         }
@@ -141,7 +141,7 @@ namespace solver
      */
     RealVariable operator-(const RealVariable& real, const double num)
     {
-        return RealVariable(real._a, real._b, real._c-num);
+        return RealVariable(real.a, real.b, real.c-num);
     }
 
     /**
@@ -152,7 +152,7 @@ namespace solver
      */
     RealVariable operator-(const double num, const RealVariable& real)
     {
-        return RealVariable(-real._a, -real._b, -real._c+num);
+        return RealVariable(-real.a, -real.b, -real.c+num);
     }
 
     /**
@@ -163,7 +163,7 @@ namespace solver
      */
     RealVariable operator-(const RealVariable& real1, const RealVariable& real2)
     {
-        return RealVariable(num1._a-num2._a, num1._b-num2._b, num1._c-num2._c);
+        return RealVariable(real1.a-real2.a, real1.b-real2.b, real1.c-real2.c);
     }
 
     /**
@@ -174,7 +174,7 @@ namespace solver
      */
     RealVariable operator+(const RealVariable& real, const double num)
     {
-        return RealVariable(real._a, real._b, real._c+num);
+        return RealVariable(real.a, real.b, real.c+num);
     }
 
     /**
@@ -185,7 +185,7 @@ namespace solver
      */
     RealVariable operator+(const double num, const RealVariable& real)
     {
-        return RealVariable(real._a, real._b, real._c+num);
+        return RealVariable(real.a, real.b, real.c+num);
     }
 
     /**
@@ -196,7 +196,7 @@ namespace solver
      */
     RealVariable operator+(const RealVariable& real1, const RealVariable& real2)
     {
-        return RealVariable(num1._a+num2._a, num1._b+num2._b, num1._c+num2._c);
+        return RealVariable(real1.a+real2.a, real1.b+real2.b, real1.c+real2.c);
     }
 
     /**

@@ -77,7 +77,7 @@ namespace solver
         complex<double> a;
         complex<double> b;
         complex<double> c;
-        
+
         ComplexVariable()
         {
             a = 0;
