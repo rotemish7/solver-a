@@ -235,7 +235,7 @@ namespace solver
      * @param num
      * @return
      */
-    RealVariable operator==(const RealVariable& real, const doulbe num)
+    RealVariable operator==(const RealVariable& real, const double num)
     {
         return real-num;
     }
@@ -285,40 +285,40 @@ namespace solver
      */
     RealVariable operator/(const RealVariable& real1, const RealVariable& real2)
     {
-        if(num2._a == 0 && num2._b == 0 && num2._c == 0)
+        if(real2.a == 0 && real2.b == 0 && real2.c == 0)
         {
-            throw runtime_error("You can't divide by 0!");
+            throw runtime_error("Cannot divide by 0");
         }
-        if((num1._a == 0 && num2._a != 0) || (num1._a == 0 && num1._b == 0 && num2._b != 0))
+        if((real1.a == 0 && real2.a != 0) || (real1.a == 0 && real1.b == 0 && real2.b != 0))
         {
-            throw runtime_error("The power is less than 0");
+            throw runtime_error("Power is less than 0");
         }
-        RealVariable result = num1-num2;
-        if(result._a == 0 && result._b == 0 && result._c == 0)
+        RealVariable real3 = real1-real2;
+        if(real3.a == 0 && real3.b == 0 && real3.c == 0)
         {
             return RealVariable(0, 0, 1);
         }
-        if(num1._a != 0 && num1._b == 0 && num1._c == 0 && num2._a != 0 && num2._b == 0 && num2._c == 0)
-        { // num1 = a*(x^2), num2 = b*(x^2)
-            return RealVariable(0,0,num1._a/num2._a);
+        if(real1.a != 0 && real1.b == 0 && real1.c == 0 && real2.a != 0 && real2.b == 0 && real2.c == 0)
+        {
+            return RealVariable(0,0,real1.a/real2.a);
         }
-        if(num1._a != 0 && num1._b == 0 && num1._c == 0 && num2._a == 0 && num2._b != 0 && num2._c == 0)
-        { // num1 = a*(x^2), num2 = b*x
-            return RealVariable(0,num1._a/num2._b, 0);
+        if(real1.a != 0 && real1.b == 0 && real1.c == 0 && real2.a == 0 && real2.b != 0 && real2.c == 0)
+        {
+            return RealVariable(0,real1.a/real2.b, 0);
         }
-        if(num1._a == 0 && num1._b != 0 && num1._c == 0 && num2._a == 0 && num2._b != 0 && num2._c == 0)
-        { // num1 = a*x, num2 = b*x
-            return RealVariable(0,0,num1._b/num2._b);
+        if(real1.a == 0 && real1.b != 0 && real1.c == 0 && real2.a == 0 && real2.b != 0 && real2.c == 0)
+        {
+            return RealVariable(0,0,real1.b/real2.b);
         }
-        if(num1._a != 0 && num1._b != 0 && num1._c == 0 && num2._a == 0 && num2._b != 0 && num2._c == 0)
-        { // num1 = a*(x^2)+b*x, num2 = c*x
-            return RealVariable(0, num1._a/num2._c, num1._b/num2._c);
+        if(real1.a != 0 && real1.b != 0 && real1.c == 0 && real2.a == 0 && real2.b != 0 && real2.c == 0)
+        {
+            return RealVariable(0, real1.a/real2.c, real1.b/real2.c);
         }
-        if(num2._a == 0 && num2._b == 0)
-        { // num2 = c;
-            return num1/num2._c;
+        if(real2.a == 0 && real2.b == 0)
+        {
+            return real1/real2.c;
         }
-        throw runtime_error("It's too hard");
+        throw runtime_error("Divide error");
     }
 
     //// ComplexVariable ////
