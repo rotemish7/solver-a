@@ -2,10 +2,6 @@
 // Created by rotem levy on 29/04/2020.
 //
 
-#ifndef SOLVER_SOLVER_HPP
-#define SOLVER_SOLVER_HPP
-
-
 #include <iostream>
 #include <complex>
 
@@ -21,6 +17,13 @@ namespace solver
 
 
     public:
+
+        RealVariable()
+        {
+            a=0;
+            b=1;
+            c=0;
+        }
 
         RealVariable(double a,double b,double c)
         {
@@ -76,7 +79,12 @@ namespace solver
 
     public:
 
-        ComplexVariable(): a(0), b(1,0), c(0) {}
+        ComplexVariable()
+        {
+            a = 0;
+            b = complex(1,0);
+            c = 0;
+        }
 
         ComplexVariable(complex<double> a, complex<double> b, complex<double> c)
         {
@@ -124,7 +132,6 @@ namespace solver
 
     double solve(const RealVariable&);
     complex<double> solve(const ComplexVariable&);
+    string ComplexToString(const complex<double>);
 
 };
-
-#endif //SOLVER_SOLVER_HPP
