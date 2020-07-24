@@ -8,7 +8,7 @@
 #include "doctest.h"
 
 using namespace std;
-using solver::solve, solver::RealVariable, solver::ComplexVariable;
+using namespace solver;
 
 TEST_CASE("Linear equations for RealVariable")
 {
